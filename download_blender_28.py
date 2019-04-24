@@ -1,6 +1,7 @@
 import os
 import urllib.request
 import subprocess
+import tempfile
 from bs4 import BeautifulSoup
 #import zipfile
 
@@ -31,7 +32,7 @@ print("Extraído. Atualizando...")
 
 #rename app to old-something
 try:
-	hashingbarato = "C:\\Users\\ltx16\\AppData\\Local\\Temp\\old " + str(os.path.getctime("app"))
+	hashingbarato = tempfile.gettempdir() + "\\old " + str(os.path.getctime("app"))
 	os.rename("app", hashingbarato)
 except:
 	print("Não tinha versão anterior aqui. Continuando...")
