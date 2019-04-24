@@ -1,9 +1,37 @@
 import os
+import platform
 import urllib.request
 import subprocess
 import tempfile
-from bs4 import BeautifulSoup
 #import zipfile
+from bs4 import BeautifulSoup
+
+def selectBlenderRelease():
+	"""Gets the correct link index depending on OS name and architecture.
+	
+	More links can be found by running:
+		for link in soup.find_all('a'):
+    	print(link.get('href'))
+
+	Returns:
+		[integer] -- link index
+	"""
+	if platform.system() == 'Windows':
+		if platform.machine().endswith('64'):
+			return 9
+		else: 
+			return 10
+	
+	if platform.system() == 'Linux':
+		if platform.machine().endswith('64'):
+			return 13
+		else: 
+			return 14
+
+	if platform.system() == 'Darwin':
+		return 17
+
+
 
 print("Procurando... ")
 
@@ -12,12 +40,9 @@ soup = BeautifulSoup(html, 'html.parser')
 site = "https://builder.blender.org"
 name = "blender2.8.zip"
 
-#for link in soup.find_all('a'):
-#    print(link.get('href'))
-
 print("Baixando... ")
 print("(uma progress bar até que cairia bem agora, né)")
-urllib.request.urlretrieve(site + soup.find_all('a')[9].get('href'), name)
+urllib.request.urlretrieve(site + soup.find_all('a')[selectBlenderRelease()].get('href'), name)
 print("Pronto.")
 
 #print("Extract it yourself")
