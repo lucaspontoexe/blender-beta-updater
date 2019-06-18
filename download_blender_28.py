@@ -3,7 +3,7 @@ import platform
 import urllib.request
 import subprocess
 import tempfile
-#import zipfile
+import zipfile
 from bs4 import BeautifulSoup
 
 def selectBlenderRelease():
@@ -16,21 +16,18 @@ def selectBlenderRelease():
 	Returns:
 		[integer] -- link index
 	"""
-	if platform.system() == 'Windows':
-		if platform.machine().endswith('64'):
-			return 9
-		else: 
-			return 10
+
+	platforms = {
+		'Windows': 9,
+		'Linux': 13,
+		'Darwin': 17
+	}
+
+	if platform.machine().endswith('64'):
+		return platforms[platform.system()]
+	else: 
+		return platforms[platform.system() + 1]
 	
-	if platform.system() == 'Linux':
-		if platform.machine().endswith('64'):
-			return 13
-		else: 
-			return 14
-
-	if platform.system() == 'Darwin':
-		return 17
-
 
 
 print("Procurando... ")
@@ -45,14 +42,14 @@ print("(uma progress bar até que cairia bem agora, né)")
 urllib.request.urlretrieve(site + soup.find_all('a')[selectBlenderRelease()].get('href'), name)
 print("Pronto.")
 
-#print("Extract it yourself")
-#with zipfile.ZipFile(name) as thedamnfile:
-#    print("(well, why am I writing this in English?)")
-#    thedamnfile.extractall()
-#    print("All done.")
+print("Extract it yourself")
+with zipfile.ZipFile(name) as thedamnfile:
+    print("(well, why am I writing this in English?)")
+    thedamnfile.extractall()
+    print("All done.")
 
 print("Extraindo...")
-subprocess.run(["7z", "x", name])
+#subprocess.run(["7z", "x", name])
 print("Extraído. Atualizando...")
 
 #rename app to old-something
