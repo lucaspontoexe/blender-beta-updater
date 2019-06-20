@@ -1,9 +1,8 @@
 import os
 import platform
 import urllib.request
-import subprocess
+import shutil
 import tempfile
-import zipfile
 from bs4 import BeautifulSoup
 
 def selectBlenderRelease():
@@ -29,33 +28,33 @@ def selectBlenderRelease():
 		return platforms[platform.system() + 1]
 	
 
-
 print("Procurando... ")
 
 html = urllib.request.urlopen("https://builder.blender.org/download").read()
 soup = BeautifulSoup(html, 'html.parser')
 site = "https://builder.blender.org"
-name = "blender2.8.zip"
+
+#Linux uses a different file format
+if platform.system() == 'Linux':
+	name = "blender2.8.tar.bz2"
+else:
+	name = "blender2.8.zip"
 
 print("Baixando... ")
 print("(uma progress bar até que cairia bem agora, né)")
 urllib.request.urlretrieve(site + soup.find_all('a')[selectBlenderRelease()].get('href'), name)
 print("Pronto.")
 
-print("Extract it yourself")
-with zipfile.ZipFile(name) as thedamnfile:
-    print("(well, why am I writing this in English?)")
-    thedamnfile.extractall()
-    print("All done.")
 
 print("Extraindo...")
-#subprocess.run(["7z", "x", name])
+shutil.unpack_archive(name)
+
 print("Extraído. Atualizando...")
 
 #rename app to old-something
 try:
-	hashingbarato = tempfile.gettempdir() + "\\old " + str(os.path.getctime("app"))
-	os.rename("app", hashingbarato)
+	cheaphashing = tempfile.gettempdir() + "\\old " + str(os.path.getctime("app"))
+	os.rename("app", cheaphashing)
 except:
 	print("Não tinha versão anterior aqui. Continuando...")
 
