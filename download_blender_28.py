@@ -26,19 +26,20 @@ def selectBlenderRelease():
 		return platforms[platform.system()]
 	else: 
 		return platforms[platform.system() + 1]
-	
+
 
 print("Procurando... ")
 
-html = urllib.request.urlopen("https://builder.blender.org/download").read()
-soup = BeautifulSoup(html, 'html.parser')
 site = "https://builder.blender.org"
+html = urllib.request.urlopen(site).read()
+soup = BeautifulSoup(html, 'html.parser')
+name = "blender2.8"
 
 #Linux uses a different file format
 if platform.system() == 'Linux':
-	name = "blender2.8.tar.bz2"
+	name += ".tar.bz2"
 else:
-	name = "blender2.8.zip"
+	name += ".zip"
 
 print("Baixando... ")
 print("(uma progress bar até que cairia bem agora, né)")
@@ -62,5 +63,5 @@ except:
 for item in os.listdir():
 	if "blender-2.80" in item:
 		os.rename(item, "app")
-			
+
 print("tá pronto 👍 100% atualizado")
