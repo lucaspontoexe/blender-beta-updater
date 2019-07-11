@@ -1,0 +1,24 @@
+{
+  "en-US": {
+    "searching": "Searching...",
+    "downloading": "Downloading...",
+    "rant": "(there should really be a progress bar here)",
+    "download_done": "Done downloading.",
+    "extracting": "Extracting...",
+    "extract_done": "Extracted.",
+    "updating": "Updating...",
+    "no_past_version": "No past version detected.",
+    "all_done": "Everything is ready. 👍 100% updated"
+  },
+  "pt-BR": {
+    "searching": "Procurando...",
+    "downloading": "Baixando...",
+    "rant": "(uma progress bar até que cairia bem agora, né)",
+    "download_done": "Pronto.",
+    "extracting": "Extraindo...",
+    "extract_done": "Extraído.",
+    "updating": "Atualizando...",
+    "no_past_version": "Não tinha versão anterior aqui. Continuando...",
+    "all_done": "tá pronto 👍 100% atualizado"
+  }
+}

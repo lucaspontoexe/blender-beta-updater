@@ -3,7 +3,14 @@ import platform
 import urllib.request
 import shutil
 import tempfile
+import json
 from bs4 import BeautifulSoup
+
+trfile = open("i18n.json", 'r', encoding='UTF-8')
+i18n = json.loads(trfile)
+
+def print_tr(part):
+    print(i18n["pt_BR"]["part"])
 
 
 def select_blender_release():
@@ -12,9 +19,9 @@ def select_blender_release():
             [integer] -- link index
     """
 
-#	More links can be found by running:
-#		for link in soup.find_all('a'):
-#			print(link.get('href'))
+    #	More links can be found by running:
+    #		for link in soup.find_all('a'):
+    #			print(link.get('href'))
 
     platforms = {
         'Windows': 9,
@@ -50,8 +57,8 @@ print("Pronto.")
 
 print("Extraindo...")
 shutil.unpack_archive(name)
-
-print("Extraído. Atualizando...")
+print("Extraído.")
+print("Atualizando...")
 
 # rename app to old-something
 try:
