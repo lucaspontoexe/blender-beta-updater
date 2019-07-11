@@ -1,5 +1,5 @@
 {
-  "en-US": {
+  "en_US": {
     "searching": "Searching...",
     "downloading": "Downloading...",
     "rant": "(there should really be a progress bar here)",
@@ -10,7 +10,7 @@
     "no_past_version": "No past version detected.",
     "all_done": "Everything is ready. 👍 100% updated"
   },
-  "pt-BR": {
+  "pt_BR": {
     "searching": "Procurando...",
     "downloading": "Baixando...",
     "rant": "(uma progress bar até que cairia bem agora, né)",

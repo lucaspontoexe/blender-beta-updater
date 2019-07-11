@@ -4,13 +4,26 @@ import urllib.request
 import shutil
 import tempfile
 import json
+
 from bs4 import BeautifulSoup
 
-trfile = open("i18n.json", 'r', encoding='UTF-8')
+trfile = open("i18n.json", 'r', encoding='UTF-8').read()
 i18n = json.loads(trfile)
 
+# Try to get the language from the system variable. Defaults to en_US
+lang = os.getenv('LANG').split('.')[0] or 'en_US'
+
+
 def print_tr(part):
-    print(i18n["pt_BR"]["part"])
+    """Prints translated text from the JSON file (i18n.json)
+    
+    Arguments:
+        part {string} -- Gets the string from the file
+    """
+    try:
+        print(i18n[lang][part])
+    except KeyError:
+        print(i18n['en_US'][part])
 
 
 def select_blender_release():
@@ -35,7 +48,7 @@ def select_blender_release():
         return platforms[platform.system() + 1]
 
 
-print("Procurando... ")
+print_tr('searching')
 
 site = "https://builder.blender.org"
 html = urllib.request.urlopen(site).read()
@@ -48,28 +61,28 @@ if platform.system() == 'Linux':
 else:
     name += ".zip"
 
-print("Baixando... ")
-print("(uma progress bar até que cairia bem agora, né)")
+print_tr("downloading")
+print_tr("rant")
 urllib.request.urlretrieve(site + soup.find_all('a')
                            [select_blender_release()].get('href'), name)
-print("Pronto.")
+print_tr("download_done")
 
 
-print("Extraindo...")
+print_tr("extracting")
 shutil.unpack_archive(name)
-print("Extraído.")
-print("Atualizando...")
+print_tr("extract_done")
+print_tr("updating")
 
 # rename app to old-something
 try:
     cheap_hashing = tempfile.gettempdir() + "\\old " + str(os.path.getctime("app"))
     os.rename("app", cheap_hashing)
 except FileNotFoundError:
-    print("Não tinha versão anterior aqui. Continuando...")
+    print_tr("no_past_version")
 
 # rename blender to app
 for item in os.listdir():
     if "blender-2.80" in item:
         os.rename(item, "app")
 
-print("tá pronto 👍 100% atualizado")
+print_tr("all_done")
