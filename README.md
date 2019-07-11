@@ -1,5 +1,5 @@
 # Blender 2.8 beta updater
-[WIP] updates blender 2.8 nightly builds
+Updates blender 2.8 nightly builds
 
 
 ## Dependency
