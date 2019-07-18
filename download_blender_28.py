@@ -3,6 +3,7 @@ import platform
 import urllib.request
 import shutil
 import tempfile
+import locale
 import json
 
 from bs4 import BeautifulSoup
@@ -11,8 +12,7 @@ trfile = open("i18n.json", 'r', encoding='UTF-8').read()
 i18n = json.loads(trfile)
 
 # Try to get the language from the system variable. Defaults to en_US
-lang = os.getenv('LANG').split('.')[0] or 'en_US'
-
+lang = locale.getdefaultlocale()[0] or 'en_US'
 
 def print_tr(part):
     """Prints translated text from the JSON file (i18n.json)
