@@ -38,8 +38,8 @@ def select_blender_release():
 
     platforms = {
         'Windows': 9,
-        'Linux': 13,
-        'Darwin': 17
+        'Linux': 11,
+        'Darwin': 13
     }
 
     if platform.machine().endswith('64'):
@@ -53,7 +53,7 @@ print_tr('searching')
 site = "https://builder.blender.org"
 html = urllib.request.urlopen(site).read()
 soup = BeautifulSoup(html, 'html.parser')
-name = "blender2.8"
+name = "blender2.81"
 
 # Linux uses a different file format
 if platform.system() == 'Linux':
@@ -82,7 +82,7 @@ except FileNotFoundError:
 
 # rename blender to app
 for item in os.listdir():
-    if "blender-2.80" in item:
+    if "blender-2.81" in item:
         os.rename(item, "app")
 
 print_tr("all_done")
